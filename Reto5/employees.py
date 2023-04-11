@@ -8,13 +8,13 @@ import matplotlib.pyplot as plt
 
 # load a limit number of rows
 def load_dataframe(nrows):
-    df = pd.read_csv("Employees.csv", nrows=nrows)
+    df = pd.read_csv("./Employees.csv", nrows=nrows)
     return df
 
 # Function with cache that load all employees
 @st.cache
 def load_alldata():
-    df = pd.read_csv("Employees.csv")
+    df = pd.read_csv("./Employees.csv")
     return df
 
 dfEmp = load_dataframe(500)

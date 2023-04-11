@@ -6,11 +6,24 @@ import codecs
 import matplotlib.pyplot as plt
 
 
-df_employees = load_data(500)
-df_employeescomplete = load_dataAll()
+# load a limit number of rows
+def load_dataframe(nrows):
+    df = pd.read_csv("employees.csv", nrows=nrows)
+    return df
+
+
+
+# Function with cache that load all employees
+@st.cache
+def load_alldata():
+    df = pd.read_csv("employees.csv")
+    return df
+
+dfEmp = load_dataframe(500)
+dfEmpAll = load_dataAll()
 
 # crear title de la app web.
-st.title("Employees App (By Leonardo Gonzalez)")
+st.title("Employee analysis")
 
 sidebar = st.sidebar
 sidebar.title("Filters")

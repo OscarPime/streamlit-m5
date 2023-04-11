@@ -60,26 +60,26 @@ ax3.set_xlabel("Attrition rate")
 st.header('Hometowns with more Attrition Rate')
 st.pyplot(fig3)
 
-# # Graph Age vs Attrition Rate 
-# st.markdown("___")
-# #Create new dataframe
-# df_empl_Age = df_employeescomplete[['Age','Attrition_rate']].groupby('Age').sum()
-# #st.dataframe(df_empl_Age)
-# fig4, ax4 = plt.subplots()
-# y_pos2 = df_empl_Age.index
-# x_pos2 = df_empl_Age['Attrition_rate']
-# ax4.barh(y_pos2, x_pos2)
-# ax4.set_ylabel("Age")
-# ax4.set_xlabel("Attrition rate")
-# st.header('Ages with more Attrition Rate')
-# st.pyplot(fig4)
+# Graph Age vs Attrition Rate 
+st.markdown("___")
+#Create new dataframe
+df_empl_Age = dfEmpAll[['Age','Attrition_rate']].groupby('Age').sum()
+#st.dataframe(df_empl_Age)
+fig4, ax4 = plt.subplots()
+y_pos2 = df_empl_Age.index
+x_pos2 = df_empl_Age['Attrition_rate']
+ax4.barh(y_pos2, x_pos2)
+ax4.set_ylabel("Age")
+ax4.set_xlabel("Attrition rate")
+st.header('Ages with more Attrition Rate')
+st.pyplot(fig4)
 
 
-# # Graph dispersion between Time of service and Attriton Rate
-# st.markdown("___")
-# fig3, ax3 = plt.subplots()
-# ax3.scatter(df_employeescomplete["Time_of_service"], df_employeescomplete["Attrition_rate"])
-# ax3.set_xlabel("Time of service")
-# ax3.set_ylabel("Attrition rate")
-# st.header("Relation between Time of service and Atrrition Rate")
-# st.pyplot(fig3)
+# Graph dispersion between Time of service and Attriton Rate
+st.markdown("___")
+fig3, ax3 = plt.subplots()
+ax3.scatter(dfEmpAll["Time_of_service"], df_employeescomplete["Attrition_rate"])
+ax3.set_xlabel("Time of service")
+ax3.set_ylabel("Attrition rate")
+st.header("Relation between Time of service and Atrrition Rate")
+st.pyplot(fig3)

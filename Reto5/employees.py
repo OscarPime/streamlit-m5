@@ -8,40 +8,38 @@ import codecs
 
 DATA_URL = 'source/Employees.csv'
 
-# Title of App web.
+# Title of WebApp.
 st.title("Employee analysis")
 
+# Create sidebar of WebApp
 sidebar = st.sidebar
 sidebar.title("Filters")
 
+# load a limit number of rows
+@st.cache
+def load_filterdata(num_rows):
+    dataframe = pd.read_csv(DATA_URL, nrows=num_rows)
+    return dataframe
 
-# # load a limit number of rows
-# @st.cache
-# def load_dataframe(num_rows):
-#     df = pd.read_csv("source/Employees.csv", nrows=num_rows)
-#     return df
-
-# # Function with cache that load all employees
-# @st.cache
+# Function with cache that load all employees
+@st.cache
 def load_alldata():
-    df = pd.read_csv(DATA_URL)
-    return df
+    dataframe = pd.read_csv(DATA_URL)
+    return dataframe
 
-# dfEmp = load_dataframe(500)
-# dfEmpAll = load_alldata()
-df_employees = load_alldata()
-st.dataframe(df_employees)
+df_allemployees = load_alldata()
+st.dataframe(df_allemployees)
 
 # show_df = sidebar.checkbox("Show Data Frame?", value=True )
 
 
-# # Graph Age
-# st.markdown("___")
-# fig, ax = plt.subplots()
-# ax.hist(dfEmpAll["Age"])
-# ax.set_xlabel("Age")
-# st.header("Age Histogram")
-# st.pyplot(fig)
+# Graph Age
+st.markdown("___")
+fig, ax = plt.subplots()
+ax.hist(df_allemployees["Age"])
+ax.set_xlabel("Age")
+st.header("Age Histogram")
+st.pyplot(fig)
 
 # # Graph Unit
 # st.markdown("___")

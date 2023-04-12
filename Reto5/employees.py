@@ -1,20 +1,21 @@
-import streamlit as st
+
 import pandas as pd
 import numpy as np
+import streamlit as st
+import matplotlib.pyplot as plt
 import plotly.express as px
 import codecs
-import matplotlib.pyplot as plt
 
 
 # load a limit number of rows
-def load_dataframe(nrows):
-    df = pd.read_csv("/workspaces/streamlit-m5/Reto5/Employees.csv", nrows=nrows)
+def load_dataframe(num_rows):
+    df = pd.read_csv("Employees.csv", nrows=num_rows)
     return df
 
 # Function with cache that load all employees
 @st.cache
 def load_alldata():
-    df = pd.read_csv("/workspaces/streamlit-m5/Reto5/Employees.csv")
+    df = pd.read_csv("Employees.csv")
     return df
 
 dfEmp = load_dataframe(500)

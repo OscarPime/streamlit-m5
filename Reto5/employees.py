@@ -34,11 +34,12 @@ st.dataframe(df_allemployees)
 
 
 # Graph Age
-st.markdown("___")
+# st.markdown("___")
 fig, ax = plt.subplots()
 ax.hist(df_allemployees["Age"])
 ax.set_xlabel("Age")
-st.header("Age Histogram")
+
+st.header("GraphAge Histogram")
 st.pyplot(fig)
 
 # # Graph Unit

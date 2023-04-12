@@ -10,9 +10,8 @@ DATA_URL = 'source/Employees.csv'
 
 # Title of WebApp.
 st.title("Employee analysis")
-st.header("Oscar Pimentel Anguiano")
+st.markdown("**By Oscar Pimentel Anguiano**")
 
-# Create sidebar of WebApp
 sidebar = st.sidebar
 sidebar.title("Filters")
 
@@ -28,13 +27,17 @@ def load_alldata():
     dataframe = pd.read_csv(DATA_URL)
     return dataframe
 
-
+df_limitEmp = load_filterdata(500)
 df_allemployees = load_alldata()
 st.dataframe(df_allemployees)
 
-st.markdown("___")
-# show_df = sidebar.checkbox("Show Data Frame?", value=True )
+bol_showinfo = sidebar.checkbox("Wants to show filter info?", value=True )
+if bol_showinfo:
+    # Show limit information
+    st.write(f"Total Employees : {df_limitEmp.shape[0]}")
+    st.dataframe(df_limitEmp)
 
+st.markdown("___")
 
 # Graph Age
 fig_age, ax = plt.subplots()

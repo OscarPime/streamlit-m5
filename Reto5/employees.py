@@ -33,7 +33,7 @@ df_allemployees = load_alldata()
 # Function offilter by Emloyee_ID
 @st.cache
 def getInfo_name(id):
-    data = pd.read_csv('fuentes/Employees.csv')
+    data = pd.read_csv(DATA_URL)
     filtered_data_byname = data[data['Employee_ID'].str.upper().str.contains(id)]
     return filtered_data_byname
 

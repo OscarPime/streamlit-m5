@@ -10,6 +10,7 @@ DATA_URL = 'source/Employees.csv'
 
 # Title of WebApp.
 st.title("Employee analysis")
+st.header("Oscar Pimentel Anguiano")
 
 # Create sidebar of WebApp
 sidebar = st.sidebar
@@ -27,64 +28,61 @@ def load_alldata():
     dataframe = pd.read_csv(DATA_URL)
     return dataframe
 
+
 df_allemployees = load_alldata()
 st.dataframe(df_allemployees)
 
+st.markdown("___")
 # show_df = sidebar.checkbox("Show Data Frame?", value=True )
 
 
 # Graph Age
-# st.markdown("___")
-fig, ax = plt.subplots()
+fig_age, ax = plt.subplots()
 ax.hist(df_allemployees["Age"])
 ax.set_xlabel("Age")
 
-st.header("GraphAge Histogram")
-st.pyplot(fig)
+st.header("Graph Age Histogram")
+st.pyplot(fig_age)
 
-# # Graph Unit
-# st.markdown("___")
-# fig2, ax2 = plt.subplots()
-# ax2.hist(dfEmpAll["Unit"])
-# ax2.set_xlabel("Unit")
-# ax2.set_xticklabels(ax2.get_xticklabels(), rotation=90)
-# st.header("Unit Frecuency")
-# st.pyplot(fig2)
+# Graph of Unit
+fig_unit, ax2 = plt.subplots()
+ax2.hist(df_allemployees["Unit"])
+ax2.set_xlabel("Unit")
+ax2.set_xticklabels(ax2.get_xticklabels(), rotation=90)
 
-# # Graph Hometown 
-# st.markdown("___")
-# #Create new dataframe
-# df_empl_homtown = dfEmpAll[['Hometown','Attrition_rate']].groupby('Hometown').sum()
-# #st.dataframe(df_empl_homtown)
-# fig3, ax3 = plt.subplots()
-# y_pos = df_empl_homtown.index
-# x_pos = df_empl_homtown['Attrition_rate']
-# ax3.barh(y_pos, x_pos)
-# ax3.set_ylabel("Hometown")
-# ax3.set_xlabel("Attrition rate")
-# st.header('Hometowns with more Attrition Rate')
-# st.pyplot(fig3)
+st.header("Unit Frecuency")
+st.pyplot(fig_unit)
 
-# # Graph Age vs Attrition Rate 
-# st.markdown("___")
-# #Create new dataframe
-# df_empl_Age = dfEmpAll[['Age','Attrition_rate']].groupby('Age').sum()
-# #st.dataframe(df_empl_Age)
-# fig4, ax4 = plt.subplots()
-# y_pos2 = df_empl_Age.index
-# x_pos2 = df_empl_Age['Attrition_rate']
-# ax4.barh(y_pos2, x_pos2)
-# ax4.set_ylabel("Age")
-# ax4.set_xlabel("Attrition rate")
-# st.header('Ages with more Attrition Rate')
-# st.pyplot(fig4)
+# Graph Hometown
+df_homtown = df_allemployees[['Hometown','Attrition_rate']].groupby('Hometown').sum()
+fig_homtown, ax3 = plt.subplots()
+y_pos = df_homtown.index
+x_pos = df_homtown['Attrition_rate']
+ax3.barh(y_pos, x_pos)
+ax3.set_ylabel("Hometown")
+ax3.set_xlabel("Attrition rate")
+
+st.header('Hometowns with more Attrition Rate')
+st.pyplot(fig_homtown)
+
+# Age vs Attrition Rate
+df_Age = df_allemployees[['Age','Attrition_rate']].groupby('Age').sum()
+fig_Attrit, ax4 = plt.subplots()
+y_pos2 = df_Age.index
+x_pos2 = df_Age['Attrition_rate']
+ax4.barh(y_pos2, x_pos2)
+ax4.set_ylabel("Age")
+ax4.set_xlabel("Attrition rate")
+
+st.header('Ages with more Attrition Rate')
+st.pyplot(fig_Attrit)
+
+# Dispersion (Time of service & Attriton Rate)
+fig_time, ax3 = plt.subplots()
+ax3.scatter(df_allemployees["Time_of_service"], df_allemployees["Attrition_rate"])
+ax3.set_xlabel("Time of service")
+ax3.set_ylabel("Attrition rate")
 
 
-# # Graph dispersion between Time of service and Attriton Rate
-# st.markdown("___")
-# fig3, ax3 = plt.subplots()
-# ax3.scatter(dfEmpAll["Time_of_service"], dfEmpAll["Attrition_rate"])
-# ax3.set_xlabel("Time of service")
-# ax3.set_ylabel("Attrition rate")
-# st.header("Relation between Time of service and Atrrition Rate")
-# st.pyplot(fig3)
+st.header("Dispersion (Time of service & Atrrition Rate)")
+st.pyplot(fig_time)

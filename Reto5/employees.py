@@ -35,6 +35,9 @@ if bol_showinfo:
     # Show limit information
     st.write(f"Total Employees : {df_limitEmp.shape[0]}")
     st.dataframe(df_limitEmp)
+else:
+    st.write(f"Total Employees : {df_allemployees.shape[0]}")
+    st.dataframe(df_allemployees)
 
 st.markdown("___")
 

@@ -29,7 +29,6 @@ def load_alldata():
 
 df_limitEmp = load_filterdata(500)
 df_allemployees = load_alldata()
-st.dataframe(df_allemployees)
 
 bol_showinfo = sidebar.checkbox("Wants to show filter info?", value=True )
 if bol_showinfo:

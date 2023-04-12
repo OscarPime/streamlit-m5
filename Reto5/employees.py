@@ -30,15 +30,29 @@ def load_alldata():
 df_limitEmp = load_filterdata(500)
 df_allemployees = load_alldata()
 
+# Function offilter by Emloyee_ID
+@st.cache
+def getInfo_name(id):
+    data = pd.read_csv('fuentes/Employees.csv')
+    filtered_data_byname = data[data['Employee_ID'].str.upper().str.contains(id)]
+    return filtered_data_byname
+
 bol_showinfo = sidebar.checkbox("Wants to show filter info?", value=True )
 if bol_showinfo:
+
+    # Filter input by Employee_ID
+    id_employee = sidebar.text_input("Employee_ID:")
+    if sidebar.button('Find Employee_ID'):
+        if id_employee:            
+            df_limitEmp = getInfo_name(id_employee.upper())
+
     # Show limit information
     st.write(f"Total Employees : {df_limitEmp.shape[0]}")
     st.dataframe(df_limitEmp)
 else:
     st.write(f"Total Employees : {df_allemployees.shape[0]}")
     st.dataframe(df_allemployees)
-
+    
 st.markdown("___")
 
 # Graph Age

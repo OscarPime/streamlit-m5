@@ -6,6 +6,14 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import codecs
 
+DATA_URL = 'source/Employees.csv'
+
+# Title of App web.
+st.title("Employee analysis")
+
+sidebar = st.sidebar
+sidebar.title("Filters")
+
 
 # # load a limit number of rows
 # @st.cache
@@ -15,22 +23,14 @@ import codecs
 
 # # Function with cache that load all employees
 # @st.cache
-# def load_alldata():
-#     df = pd.read_csv("source/Employees.csv")
-#     return df
+def load_alldata():
+    df = pd.read_csv(DATA_URL)
+    return df
 
 # dfEmp = load_dataframe(500)
 # dfEmpAll = load_alldata()
-
-# crear title de la app web.
-st.title("Employee analysis")
-
-sidebar = st.sidebar
-sidebar.title("Filters")
-
-df = pd.read_csv("source/Employees.csv")
-st.dataframe(df)
-
+df_employees = load_alldata()
+st.dataframe(df_employees)
 
 # show_df = sidebar.checkbox("Show Data Frame?", value=True )
 

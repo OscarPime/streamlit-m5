@@ -8,17 +8,17 @@ import matplotlib.pyplot as plt
 
 # load a limit number of rows
 def load_dataframe(nrows):
-    df = pd.read_csv("Employees.csv", nrows=nrows)
+    df = pd.read_csv("/workspaces/streamlit-m5/Reto5/Employees.csv", nrows=nrows)
     return df
 
 # Function with cache that load all employees
 @st.cache
 def load_alldata():
-    df = pd.read_csv("Employees.csv")
+    df = pd.read_csv("/workspaces/streamlit-m5/Reto5/Employees.csv")
     return df
 
 dfEmp = load_dataframe(500)
-dfEmpAll = load_dataAll()
+dfEmpAll = load_alldata()
 
 # crear title de la app web.
 st.title("Employee analysis")
@@ -78,7 +78,7 @@ st.pyplot(fig4)
 # Graph dispersion between Time of service and Attriton Rate
 st.markdown("___")
 fig3, ax3 = plt.subplots()
-ax3.scatter(dfEmpAll["Time_of_service"], df_employeescomplete["Attrition_rate"])
+ax3.scatter(dfEmpAll["Time_of_service"], dfEmpAll["Attrition_rate"])
 ax3.set_xlabel("Time of service")
 ax3.set_ylabel("Attrition rate")
 st.header("Relation between Time of service and Atrrition Rate")

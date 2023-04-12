@@ -21,7 +21,7 @@ def load_filterdata(num_rows):
     dataframe = pd.read_csv(DATA_URL, nrows=num_rows)
     return dataframe
 
-# Function with cache that load all employees
+# Function load all employees
 @st.cache
 def load_alldata():
     dataframe = pd.read_csv(DATA_URL)
@@ -32,19 +32,77 @@ df_allemployees = load_alldata()
 
 # Function offilter by Emloyee_ID
 @st.cache
-def getInfo_name(id):
-    data = pd.read_csv(DATA_URL)
-    filtered_data_byname = data[data['Employee_ID'].str.upper().str.contains(id)]
+def getInfo_name(id_employe):
+    filtered_data_byname = df_allemployees[df_allemployees['Employee_ID'].str.upper().str.contains(id_employe)]
     return filtered_data_byname
+
+# Function filter HomeTown
+@st.cache
+def getInfo_hometown(filter):
+    df_fltHometown = df_allemployees[df_allemployees['Hometown'].str.upper().str.contains(filter)]
+    return df_fltHometown
+
+# Function filter Unit
+@st.cache
+def getInfo_unit(filter):
+    df_fltUnit = df_allemployees[df_allemployees['Unit'].str.upper().str.contains(filter)]
+    return df_fltUnit
+
+# Function filter Education_level
+@st.cache
+def getInfo_education_level(level):
+    df_fltlevel = df_allemployees[df_allemployees['Education_Level'] == level ]
+    return df_fltlevel
+
+# Function filter HometownSELECT
+@st.cache
+def getInfo_hometownSelect(hometown_selec):
+    df_fltHomeTownSelec = df_allemployees[df_allemployees['Hometown'] == hometown_selec ]
+    return df_fltHomeTownSelec
+
+# Function filter UnitSELECT
+@st.cache
+def getInfo_UnitSelect(unit_selec):
+    df_fltUnitSelec = df_allemployees[df_allemployees['Unit'] == unit_selec ]
+    return df_fltUnitSelec
 
 bol_showinfo = sidebar.checkbox("Wants to show filter info?", value=True )
 if bol_showinfo:
-
     # Filter input by Employee_ID
     id_employee = sidebar.text_input("Employee_ID:")
     if sidebar.button('Find Employee_ID'):
-        if id_employee:            
+        if id_employee :            
             df_limitEmp = getInfo_name(id_employee.upper())
+
+    # filter input by Hometown
+    flt_hometown = sidebar.text_input("Hometown:")
+    if (sidebar.button('Find Hometown')):
+        if (flt_hometown):            
+            df_limitemp = getInfo_hometown(flt_hometown.upper())
+
+    # filter input by Unit
+    flt_unit = sidebar.text_input("Unit:")
+    if (sidebar.button('Find Unit')):
+        if (flt_unit):            
+            df_limitemp = getInfo_unit(flt_unit.upper())
+
+    # filter selectedbox by education level
+    flt_education_level  = sidebar.selectbox('Select Education Level', df_allemployees.sort_values(by='Education_Level')['Education_Level'].unique())
+    btn_EducLevel = sidebar.button('Find Education Level')
+    if (btn_EducLevel):
+        df_limitEmp = getInfo_education_level(flt_education_level)
+    
+    # filter selectedbox by Hometown
+    flt_selc_hometown  = sidebar.selectbox('Select Hometown', df_allemployees.sort_values(by='Hometown')['Hometown'].unique())
+    btn_HomeTown= sidebar.button('Find Hometown (Select)')
+    if (btn_HomeTown):
+        df_limitEmp = getInfo_hometownSelect(flt_selc_hometown)
+
+    # filter selectedbox by Unit
+    flt_selc_unit = sidebar.selectbox('Select Unit', df_allemployees.sort_values(by='Unit')['Unit'].unique())
+    btn_Unit= sidebar.button('Find Unit (Select)')
+    if (btn_Unit):
+        df_limitEmp = getInfo_UnitSelect(flt_selc_unit)
 
     # Show limit information
     st.write(f"Total Employees : {df_limitEmp.shape[0]}")
